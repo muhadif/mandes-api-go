@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `user`
+(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    serial VARCHAR (255) NOT NULL,
+    username VARCHAR (255) NOT NULL,
+    full_name VARCHAR (255) NOT NULL,
+    role VARCHAR (40) NOT NULL,
+    email VARCHAR (255) NOT NUlL,
+    password VARCHAR (255) NOT NULL,
+    gender VARCHAR (255) NOT NULL,
+    photo_url VARCHAR (255) NOT NULL,
+    phone_number VARCHAR (255) NOT NULL,
+    address TEXT NOT NULL,
+    status VARCHAR (40) NOT NULL,
+    access_status VARCHAR (40) NOT NULL,
+    registration_otp VARCHAR (16) NOT NULL,
+    forgot_password_token VARCHAR (16) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT UC_SERIAL UNIQUE (serial),
+    CONSTRAINT UC_EMAIL UNIQUE (email)
+    );
