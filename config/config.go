@@ -5,6 +5,8 @@ import (
 )
 
 type Config struct {
+	AppSecretKey string `env:"APP_SECRET_KEY"`
+
 	MySqlDatabase string `env:"MYSQL_DATABASE"`
 	MySqlUsername string `env:"MYSQL_USERNAME"`
 	MySqlPassword string `env:"MYSQL_PASSWORD"`
@@ -21,6 +23,7 @@ type Config struct {
 
 	UserServiceURL string `env:"USER_SERVICE_URL"`
 	HttpPort       string `env:"HTTP_PORT"`
+	JWTExpiredTime int    `env:"JWT_EXPIRED_TIME"`
 }
 
 func LoadConfig() (config Config) {
