@@ -37,3 +37,7 @@ type UserToken struct {
 	UserSerial   string
 	RefreshToken string
 }
+
+type LogoutRequest struct {
+	UserSerial string
+}

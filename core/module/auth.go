@@ -17,6 +17,7 @@ type AuthModule interface {
 	RefreshToken(ctx context.Context, req *entity.RefreshTokenRequest) (*entity.LoginResponse, error)
 	Register(ctx context.Context, req *entity.RegisterRequest) error
 	RegisterFromAdmin(ctx context.Context, req *entity.RegisterFromAdminRequest) error
+	Logout(ctx context.Context, req *entity.LogoutRequest) error
 }
 
 type authModule struct {
@@ -115,4 +116,11 @@ func (a *authModule) RefreshToken(ctx context.Context, req *entity.RefreshTokenR
 	}
 
 	return &entity.LoginResponse{AccessToken: token}, nil
+}
+
+func (a *authModule) Logout(ctx context.Context, req *entity.LogoutRequest) error {
+	if err := a.userRepository.RemoveUserToken(ctx, req.UserSerial); err != nil {
+		return err
+	}
+	return nil
 }

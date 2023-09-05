@@ -45,8 +45,8 @@ func (r repo) UpsertRefreshToken(ctx context.Context, serial string, token strin
 		RefreshToken: token,
 	}
 	err := r.db.Table("user_token").Clauses(clause.OnConflict{
-		Columns:   []clause.Column{{Name: "id"}},
-		DoUpdates: clause.Assignments(map[string]interface{}{"role": "user"}),
+		Columns:   []clause.Column{{Name: "user_serial"}},
+		DoUpdates: clause.Assignments(map[string]interface{}{"refresh_token": token}),
 	}).Create(&userToken).Error
 
 	if err != nil {
@@ -73,4 +73,14 @@ func (r repo) GetUserByEmail(ctx context.Context, email string) (*entity.User, e
 	}
 
 	return user, nil
+}
+
+func (r repo) RemoveUserToken(ctx context.Context, userSerial string) error {
+	var user *entity.User
+	err := r.db.Table("user_token").Where("user_serial = ?", userSerial).Delete(&user).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
